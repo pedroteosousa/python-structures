@@ -12,8 +12,7 @@ setup(
     long_description = long_description,
     long_description_content_type = "text/markdown",
     url = "https://github.com/pedroteosousa/python-structures",
-    packages = find_packages(where = "src", exclude = ["tests"]),
-    package_dir = {"" : "src"},
+    packages = find_packages(exclude = ["tests"]),
     classifiers = [
         "Programming Language :: Python :: 3",
     ],
