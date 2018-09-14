@@ -2,6 +2,7 @@
 # pylint: disable=missing-docstring
 
 import unittest
+from math import trunc, atan2
 from structures.Geometry import Point
 
 class testPoint(unittest.TestCase):
@@ -24,6 +25,9 @@ class testPoint(unittest.TestCase):
         # from tuple
         l = (1 / 3, 99.5)
         self.compare_point(Point(l), l)
+        # from complex
+        l = complex(5, -7.5)
+        self.compare_point(Point(l), (l.real, l.imag))
 
     def test_cmp(self):
         # equal
@@ -90,6 +94,12 @@ class testPoint(unittest.TestCase):
         self.assertNotEqual(g, p)
         self.assertEqual(g, f)
         self.assertEqual(g, p.normalized())
+        # zero vector
+        self.assertEqual(Point(), Point().normalized())
+
+    def test_ang(self):
+        p = Point(3, -5)
+        self.assertEqual(p.ang(), atan2(p.x, p.y))
 
     def test_cross(self):
         # left side
@@ -111,6 +121,13 @@ class testPoint(unittest.TestCase):
         # using mul
         p, g = Point(2, 40), Point(5, -1 / 3)
         self.assertEqual(p.dot(g), p * g)
+
+    def test_conversion(self):
+        p = Point(-7, 4 / 3)
+        # complex
+        self.assertEqual(complex(p), complex(p.x, p.y))
+        # trunc
+        self.assertEqual(trunc(p), Point(-7, 1))
 
     def test_abs(self):
         # origin

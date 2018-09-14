@@ -2,7 +2,7 @@
 
 """ Implementations of various geometry data structures. """
 
-from math import sqrt
+from math import sqrt, atan2
 
 class Point():
     """ Point in 2D space. """
@@ -13,6 +13,8 @@ class Point():
             self.x, self.y = x.x, x.y
         elif isinstance(x, (type([]), type(()))): # check if x is a list or a tuple
             self.x, self.y = x
+        elif isinstance(x, complex):
+            self.x, self.y = x.real, x.imag
         else:
             self.x, self.y = x, y
 
@@ -95,14 +97,12 @@ class Point():
         """ Distance to (0, 0). """
         return abs(self)
 
-    def __int__(self):
-        """ Truncate to int. """
-        return Point(int(self.x), int(self.y))
     def __complex__(self):
         """ Convert to complex. """
         return complex(self.x, self.y)
     def __trunc__(self):
-        return int(self)
+        """ Truncate to int. """
+        return Point(int(self.x), int(self.y))
 
     def normalized(self):
         """ Normalized vector from origin to this Point. """
@@ -111,6 +111,10 @@ class Point():
     def normalize(self):
         """ Normalizes this Point. """
         return self.__set(self.normalized())
+
+    def ang(self):
+        """ Return math.atan2(x, y). """
+        return atan2(self.x, self.y)
 
     def __str__(self):
         """ String representation of a Point. """
