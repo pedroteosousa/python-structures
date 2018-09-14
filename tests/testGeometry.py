@@ -43,6 +43,54 @@ class testPoint(unittest.TestCase):
         self.assertGreaterEqual(Point(0, 0), Point(-1, 0))
         self.assertGreaterEqual(Point(1, 1), Point(1, 1))
 
+    def test_arithmetic(self):
+        p, g = Point(4, -2 ** 0.5), Point(1/3, -7)
+        # add
+        self.assertEqual(p + g, Point(p.x + g.x, p.y + g.y))
+        self.assertEqual(g + p, p + g)
+        f = Point(p)
+        f += g
+        self.assertEqual(p + g, f)
+        # sub
+        self.assertEqual(p - g, Point(p.x - g.x, p.y - g.y))
+        f = Point(p)
+        f -= g
+        self.assertEqual(p - g, f)
+        # div
+        self.assertEqual(p / 2, Point(p.x / 2, p.y / 2))
+        f = Point(p)
+        f /= 2
+        self.assertEqual(p / 2, f)
+        # floor div
+        self.assertEqual(p // 2, Point(p.x // 2, p.y // 2))
+        f = Point(p)
+        f //= 2
+        self.assertEqual(p // 2, f)
+        # mul
+        self.assertEqual(p * 2, Point(p.x * 2, p.y * 2))
+        f = Point(p)
+        f *= 2
+        self.assertEqual(p * 2, f)
+        # reflected mul
+        self.assertEqual(p * 2, 2 * p)
+        # mod
+        self.assertEqual(p % 2, Point(p.x % 2, p.y % 2))
+        f = Point(p)
+        f %= 2
+        self.assertEqual(p % 2, f)
+
+    def test_normalize(self):
+        p = Point(1/3, 2 ** 0.5)
+        # check if colinear and length 1
+        self.assertEqual(p ^ p.normalized(), 0)
+        self.assertAlmostEqual(abs(p.normalized()), 1)
+        # normalize
+        g = Point(p)
+        f = g.normalize()
+        self.assertNotEqual(g, p)
+        self.assertEqual(g, f)
+        self.assertEqual(g, p.normalized())
+
     def test_cross(self):
         # left side
         self.assertGreater(Point(1, 1).cross(Point(-1, 5)), 0)
@@ -71,6 +119,9 @@ class testPoint(unittest.TestCase):
         self.assertEqual(abs(Point(3, 4)), 5)
         # sqrt 2
         self.assertEqual(abs(Point(-1, 1)), 2 ** 0.5)
+        # len
+        p = Point(5, 7)
+        self.assertEqual(p.len(), abs(p))
 
     def test_iter(self):
         t = (3, -9)
