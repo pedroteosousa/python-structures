@@ -2,7 +2,7 @@
 # pylint: disable=missing-docstring
 
 import unittest
-from sample.Geometry import Point
+from src.structures.Geometry import Point
 
 class testPoint(unittest.TestCase):
     def compare_point(self, p, l):
