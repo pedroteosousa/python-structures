@@ -1,5 +1,5 @@
 lint:
-	-pylint sample/*
+	-pylint structures/*
 	-pylint tests/*
 
 test:
