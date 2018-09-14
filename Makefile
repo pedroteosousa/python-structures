@@ -1,6 +1,5 @@
 lint:
-	-pylint structures/*
-	-pylint tests/*
+	pylint structures tests
 
 test:
-	-python3 -m unittest discover
+	python3 -m unittest discover
