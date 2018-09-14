@@ -3,6 +3,8 @@ python:
   - "3.6"
 install:
   - pip install pylint
+before_script:
+  - pylint --version
 script:
   - make lint
   - make test
