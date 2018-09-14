@@ -4,7 +4,7 @@
 
 from math import sqrt
 
-class Point(object):
+class Point():
     """ Point in 2D space. """
 
     def __init__(self, x=0, y=0):
@@ -98,14 +98,11 @@ class Point(object):
     def __int__(self):
         """ Truncate to int. """
         return Point(int(self.x), int(self.y))
-    def __long__(self):
-        """ Truncate to long. """
-        return Point(long(self.x), long(self.y))
     def __complex__(self):
         """ Convert to complex. """
         return complex(self.x, self.y)
     def __trunc__(self):
-        return long(self)
+        return int(self)
 
     def normalized(self):
         """ Normalized vector from origin to this Point. """
