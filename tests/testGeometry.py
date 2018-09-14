@@ -4,7 +4,7 @@
 
 import unittest
 from math import trunc, atan2
-from structures.Geometry import Point
+from structures.Geometry import Point, Segment
 
 class testPoint(unittest.TestCase):
     def setUp(self):
@@ -189,6 +189,49 @@ class testPoint(unittest.TestCase):
     def test_str(self):
         t = (1 / 3, 2 ** 64)
         self.assertEqual(str(Point(t)), str(t))
+
+class testSegment(unittest.TestCase):
+    def test_constructors(self):
+        p, q = Point(2, 1 / 3), Point(-3, 1.5)
+        s = Segment(p, q)
+        self.assertEqual((q, p), (s.a, s.b))
+
+    def test_len(self):
+        p, q = Point(2, 1), Point(0, 3)
+        s = Segment(p, q)
+        self.assertEqual(abs(s), 8 ** 0.5)
+        # len
+        self.assertEqual(abs(s), s.len())
+
+    def test_contains(self):
+        p, q = Point(2, 2), Point(-3, 1)
+        s = Segment(p, q)
+        # middle
+        self.assertTrue(Point(-0.5, 1.5) in s)
+        # borders
+        self.assertTrue(p in s)
+        self.assertTrue(q in s)
+        # outside
+        self.assertFalse(Point(0, 0) in s)
+        self.assertFalse(Point(2.0000001, 2.0000001) in s)
+
+    def test_intersection(self):
+        p, q = Point(2, 2), Point(-3, 1)
+        m = (p + q) / 2
+        s = Segment(p, q)
+        # point
+        self.assertEqual(s.intersection(m), m)
+        self.assertEqual(s.intersection(Point()), None)
+        # segment
+        t = Segment(m, Point(-8, 0))
+        self.assertEqual(s.intersection(t), Segment(m, q))
+        self.assertEqual(s.intersection(Segment(Point(), p)), p)
+        self.assertEqual(s.intersection(Segment(Point(-0.5, 0), Point(-0.5, 2))), m)
+        self.assertEqual(s.intersection(Segment(Point(), Point(1, 1))), None)
+
+    def test_pin(self):
+        p, q = Point(2 ** 0.5, -1), Point(-7, 3.5)
+        self.assertEqual(p - q, Segment(p, q).pin())
 
 if __name__ == '__main__':
     unittest.main()
