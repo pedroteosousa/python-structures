@@ -44,7 +44,7 @@ class Point():
     def cross(self, other):
         """ The cross product of two Points. """
         return self.x * other.y - self.y * other.x
-    def __xor__(self, other):
+    def __pow__(self, other):
         """ Another way to use cross. """
         return self.cross(other)
 

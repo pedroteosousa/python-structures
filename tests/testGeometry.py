@@ -86,7 +86,7 @@ class testPoint(unittest.TestCase):
     def test_normalize(self):
         p = Point(1/3, 2 ** 0.5)
         # check if colinear and length 1
-        self.assertEqual(p ^ p.normalized(), 0)
+        self.assertEqual(p ** p.normalized(), 0)
         self.assertAlmostEqual(abs(p.normalized()), 1)
         # normalize
         g = Point(p)
@@ -110,7 +110,7 @@ class testPoint(unittest.TestCase):
         self.assertEqual(Point(2, 3).cross(Point(-1, -1.5)), 0)
         # using xor
         p, g = Point(2, 40), Point(5, -1 / 3)
-        self.assertEqual(p.cross(g), p ^ g)
+        self.assertEqual(p.cross(g), p ** g)
 
     def test_dot(self):
         self.assertEqual(Point(1, 1).dot(Point(0, 1)), 1)
