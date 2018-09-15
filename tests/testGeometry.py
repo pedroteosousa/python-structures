@@ -32,8 +32,11 @@ class testPoint(unittest.TestCase):
     def test_cmp(self):
         # equal
         self.assertEqual(Point(1 / 3, -1), Point(1 / 3, -1))
+        self.assertEqual(Point(), 0)
+        self.assertEqual(Point(1, 1), (1, 1))
         # not equal
         self.assertNotEqual(Point(), Point(0, 0.0000005))
+        self.assertNotEqual(Point(), None)
         # less and less or equal
         self.assertLess(Point(0, 0), Point(0, 1))
         self.assertLess(Point(0, 0), Point(1, 0))

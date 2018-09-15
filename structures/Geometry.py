@@ -29,9 +29,12 @@ class Point():
         return tuple(self)[idx]
 
     def __eq__(self, other):
-        return tuple(self) == tuple(other)
+        if isinstance(other, Point):
+            return tuple(self) == tuple(other)
+        else:
+            return self == Point(other)
     def __ne__(self, other):
-        return tuple(self) != tuple(other)
+        return not self == other
     def __lt__(self, other):
         return tuple(self) < tuple(other)
     def __gt__(self, other):
