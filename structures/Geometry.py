@@ -139,8 +139,6 @@ class Segment():
     """ Segment in 2D space. """
 
     def __init__(self, a, b):
-        if a > b:
-            a, b = b, a
         self.a, self.b = a, b
 
     def __abs__(self):
@@ -150,7 +148,7 @@ class Segment():
         return abs(self)
 
     def __eq__(self, other):
-        return self.a == other.a and self.b == other.b
+        return (self.a, self.b) == (other.a, other.b) or (self.a, self.b) == (other.b, other.a)
 
     def pin(self):
         """ Returns Point b - a. """
@@ -172,4 +170,10 @@ class Segment():
                 p, q = sorted([other.a, other.b, self.a, self.b])[1: 3]
                 if p in self and p in other:
                     return Segment(p, q)
+            else:
+                e, f = (self.b - self.a), (other.b - other.a)
+                p = Point(-e.y, e.x)
+                h = ((self.a - other.a) * p) / (f * p)
+                if 0 < h <= 1:
+                    return other.a + f * h
         return None

@@ -194,7 +194,7 @@ class testSegment(unittest.TestCase):
     def test_constructors(self):
         p, q = Point(2, 1 / 3), Point(-3, 1.5)
         s = Segment(p, q)
-        self.assertEqual((q, p), (s.a, s.b))
+        self.assertEqual((p, q), (s.a, s.b))
 
     def test_len(self):
         p, q = Point(2, 1), Point(0, 3)
@@ -231,7 +231,7 @@ class testSegment(unittest.TestCase):
 
     def test_pin(self):
         p, q = Point(2 ** 0.5, -1), Point(-7, 3.5)
-        self.assertEqual(p - q, Segment(p, q).pin())
+        self.assertEqual(q - p, Segment(p, q).pin())
 
 if __name__ == '__main__':
     unittest.main()
