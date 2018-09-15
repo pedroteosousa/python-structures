@@ -31,8 +31,7 @@ class Point():
     def __eq__(self, other):
         if isinstance(other, Point):
             return tuple(self) == tuple(other)
-        else:
-            return self == Point(other)
+        return self == Point(other)
     def __ne__(self, other):
         return not self == other
     def __lt__(self, other):
