@@ -7,14 +7,14 @@ class DirectedGraph():
     def __init__(self):
         self.__adj = {} # adjancency list
 
-    def addEdge(self, u, to, capacity=1, cost=1):
+    def add_edge(self, u, to, capacity=1, cost=1):
         """ Add an edge to the graph """
         edge = {'to': to, 'capacity': capacity, 'cost': cost}
         if u not in self.__adj:
             self.__adj[u] = []
         self.__adj[u].append(edge)
 
-    def strongComponents(self):
+    def strong_components(self):
         """ Get strongly connected components. """
         components = []
 
