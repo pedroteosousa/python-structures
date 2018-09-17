@@ -1,74 +1,119 @@
 # pylint: disable=invalid-name
 # pylint: disable=missing-docstring
+# pylint: disable=too-many-public-methods
 
 import unittest
 from math import trunc, atan2
 from structures.Geometry import Point
 
 class testPoint(unittest.TestCase):
-    def compare_point(self, p, l):
-        self.assertEqual((p.x, p.y), l)
+    def setUp(self):
+        self.p, self.g = Point(4, -2 ** 0.5), Point(1/3, -7)
 
     def test_constructors(self):
-        # default constructor
-        self.compare_point(Point(), (0, 0))
-        # one number constructor
-        self.compare_point(Point(10), (10, 0))
-        # two numbers constructor
-        self.compare_point(Point(3.9, -7), (3.9, -7))
+        # number constructor
+        self.assertEqual(Point(), (0, 0))
+        self.assertEqual(Point(3.9, -7), (3.9, -7))
         # copy constructor
         p = Point(-5, 9)
-        self.compare_point(Point(p), (p.x, p.y))
+        self.assertEqual(Point(p), p)
         # from list
         l = [5.2, 6]
-        self.compare_point(Point(l), tuple(l))
+        self.assertEqual(Point(l), l)
         # from tuple
         l = (1 / 3, 99.5)
-        self.compare_point(Point(l), l)
+        self.assertEqual(Point(l), l)
         # from complex
         l = complex(5, -7.5)
-        self.compare_point(Point(l), (l.real, l.imag))
+        self.assertEqual(Point(l), l)
 
-    def test_cmp(self):
-        # equal
-        self.assertEqual(Point(1 / 3, -1), Point(1 / 3, -1))
-        self.assertEqual(Point(), 0)
-        self.assertEqual(Point(1, 1), (1, 1))
-        # not equal
+    def test_equal(self):
+        p = Point(10, -0.3)
+        # two points
+        self.assertTrue(p == Point(10, -0.3))
+        # point and tuple
+        self.assertTrue(p == (p.x, p.y))
+        # point and array
+        self.assertTrue(p == [p.x, p.y])
+        # point and complex
+        self.assertTrue(p == complex(p.x, p.y))
+
+    def test_not_equal(self):
         self.assertNotEqual(Point(), Point(0, 0.0000005))
-        self.assertNotEqual(Point(), None)
-        # less and less or equal
-        self.assertLess(Point(0, 0), Point(0, 1))
-        self.assertLess(Point(0, 0), Point(1, 0))
+
+    def test_less(self):
+        self.assertLess(Point(), Point(0, 1))
+        self.assertLess(Point(), Point(1, 0))
+
+    def test_less_or_equal(self):
         self.assertLessEqual(Point(0, 0), Point(0, 1))
         self.assertLessEqual(Point(0, 0), Point(1, 0))
         self.assertLessEqual(Point(1, 1), Point(1, 1))
-        # greater than
+
+    def test_greater(self):
         self.assertGreater(Point(0, 0), Point(0, -1))
         self.assertGreater(Point(0, 0), Point(-1, 0))
+
+    def test_greater_or_equal(self):
         self.assertGreaterEqual(Point(0, 0), Point(0, -1))
         self.assertGreaterEqual(Point(0, 0), Point(-1, 0))
         self.assertGreaterEqual(Point(1, 1), Point(1, 1))
 
-    def test_arithmetic(self):
-        p, g = Point(4, -2 ** 0.5), Point(1/3, -7)
-        # add
-        self.assertEqual(p + g, Point(p.x + g.x, p.y + g.y))
+    def test_add(self):
+        p, g = self.p, self.g
+        self.assertEqual(p + g, (p.x + g.x, p.y + g.y))
+        # commutative
         self.assertEqual(g + p, p + g)
-        f = Point(p)
-        f += g
-        self.assertEqual(p + g, f)
-        # sub
-        self.assertEqual(p - g, Point(p.x - g.x, p.y - g.y))
-        f = Point(p)
-        f -= g
-        self.assertEqual(p - g, f)
-        # div
-        self.assertEqual(p / 2, Point(p.x / 2, p.y / 2))
-        f = Point(p)
-        f /= 2
-        self.assertEqual(p / 2, f)
+        # with tuple
+        self.assertEqual(p + g, p + tuple(g))
+        self.assertEqual(p + g, tuple(g) + p)
+        # iadd
+        f = p + g
+        p += g
+        self.assertEqual(p, f)
+
+    def test_sub(self):
+        p, g = self.p, self.g
+        self.assertEqual(p - g, (p.x - g.x, p.y - g.y))
+        # with tuple
+        self.assertEqual(p - g, p - tuple(g))
+        self.assertEqual(g - p, tuple(g) - p)
+        # isub
+        f = p - g
+        p -= g
+        self.assertEqual(p, f)
+
+    def test_div(self):
+        p = self.p
+        self.assertEqual(p / 2, (p.x / 2, p.y / 2))
         # floor div
+        self.assertEqual(p // 2, (p.x // 2, p.y // 2))
+        # idiv
+        g = Point(p)
+        g /= 2
+        self.assertEqual(g, p / 2)
+        # ifloordiv
+        g = Point(p)
+        g //= 2
+        self.assertEqual(g, p // 2)
+
+    def test_mul(self):
+        p = self.p
+        self.assertEqual(p * 2, (p.x * 2, p.y * 2))
+        # rmul
+        self.assertEqual(2 * p, p * 2)
+        # imul
+        g = Point(p)
+        g *= 2
+        self.assertEqual(g, p * 2)
+
+    def test_mod(self):
+        p = self.p
+        self.assertEqual(p % 2, (p.x % 2, p.y % 2))
+        # imod
+        g = Point(p)
+        g %= 2
+        self.assertEqual(g, p % 2)
 
     def test_unary(self):
         # pylint: disable=invalid-unary-operand-type
