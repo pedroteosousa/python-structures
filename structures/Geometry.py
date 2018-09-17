@@ -66,14 +66,14 @@ class Point():
     def __add__(self, other):
         """ Adds two Points. """
         if isinstance(other, Point):
-        return Point(self.x + other.x, self.y + other.y)
+            return Point(self.x + other.x, self.y + other.y)
         return self + Point(other)
     def __radd__(self, other):
         return self + other
     def __sub__(self, other):
         """ Subtracts two Points. """
         if isinstance(other, Point):
-        return Point(self.x - other.x, self.y - other.y)
+            return Point(self.x - other.x, self.y - other.y)
         return self - Point(other)
     def __rsub__(self, other):
         return Point(other) - self
