@@ -7,7 +7,7 @@ class DirectedGraph():
     def __init__(self):
         self.__adj = {} # adjancency list
 
-    def add_edge(self, u, to, capacity=1, cost=1):
+    def add_edge(self, u, to, cost=1, capacity=1):
         """ Add an edge to the graph """
         edge = {'to': to, 'capacity': capacity, 'cost': cost}
         if u not in self.__adj:
