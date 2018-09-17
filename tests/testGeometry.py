@@ -69,22 +69,13 @@ class testPoint(unittest.TestCase):
         f /= 2
         self.assertEqual(p / 2, f)
         # floor div
-        self.assertEqual(p // 2, Point(p.x // 2, p.y // 2))
-        f = Point(p)
-        f //= 2
-        self.assertEqual(p // 2, f)
-        # mul
-        self.assertEqual(p * 2, Point(p.x * 2, p.y * 2))
-        f = Point(p)
-        f *= 2
-        self.assertEqual(p * 2, f)
-        # reflected mul
-        self.assertEqual(p * 2, 2 * p)
-        # mod
-        self.assertEqual(p % 2, Point(p.x % 2, p.y % 2))
-        f = Point(p)
-        f %= 2
-        self.assertEqual(p % 2, f)
+
+    def test_unary(self):
+        # pylint: disable=invalid-unary-operand-type
+        p = self.p
+        self.assertEqual(+p, p)
+        self.assertEqual(-p, (-p.x, -p.y))
+        self.assertEqual(-(-p), p) # pylint: disable=nonexistent-operator
 
     def test_normalize(self):
         p = Point(1/3, 2 ** 0.5)

@@ -110,6 +110,11 @@ class Point():
     def __complex__(self):
         """ Convert to complex. """
         return complex(self.x, self.y)
+
+    def __pos__(self):
+        return Point(self)
+    def __neg__(self):
+        return Point(-self.x, -self.y) # pylint: disable=invalid-unary-operand-type
     def __trunc__(self):
         """ Truncate to int. """
         return Point(int(self.x), int(self.y))
