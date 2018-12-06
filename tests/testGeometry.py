@@ -229,9 +229,5 @@ class testSegment(unittest.TestCase):
         self.assertEqual(s.intersection(Segment(Point(-0.5, 0), Point(-0.5, 2))), m)
         self.assertEqual(s.intersection(Segment(Point(), Point(1, 1))), None)
 
-    def test_pin(self):
-        p, q = Point(2 ** 0.5, -1), Point(-7, 3.5)
-        self.assertEqual(q - p, Segment(p, q)._Segment__pin())
-
 if __name__ == '__main__':
     unittest.main()
