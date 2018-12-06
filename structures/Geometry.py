@@ -134,3 +134,46 @@ class Point():
     def __str__(self):
         """ String representation of a Point. """
         return str(tuple(self))
+
+class Segment():
+    """ Segment in 2D space. """
+
+    def __init__(self, a, b):
+        self.a, self.b = a, b
+
+    def __abs__(self):
+        return abs(self.b - self.a)
+    def len(self):
+        """ Size of segment. """
+        return abs(self)
+
+    def __eq__(self, other):
+        return (self.a, self.b) == (other.a, other.b) or (self.a, self.b) == (other.b, other.a)
+
+    def __pin(self):
+        """ Returns Point b - a. """
+        return self.b - self.a
+
+    def __contains__(self, other):
+        """ Check if a Point belongs to this segment. """
+        if (other - self.a) ** self.__pin() == 0 and abs(2 * other - self.a - self.b) <= self.len():
+            return True
+        return False
+
+    def intersection(self, other):
+        """ Intersection of segment with something else.
+            Returns 'None' if there is no intersection. """
+        if isinstance(other, Point) and other in self:
+            return other
+        if isinstance(other, Segment):
+            if (other.a - self.a) ** self.__pin() == 0 and (other.b - self.a) ** self.__pin() == 0:
+                p, q = sorted([other.a, other.b, self.a, self.b])[1: 3]
+                if p in self and p in other:
+                    return Segment(p, q)
+            else:
+                e, f = (self.b - self.a), (other.b - other.a)
+                p = Point(-e.y, e.x)
+                h = ((self.a - other.a) * p) / (f * p)
+                if 0 < h <= 1:
+                    return other.a + f * h
+        return None
