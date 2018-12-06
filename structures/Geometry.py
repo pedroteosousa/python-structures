@@ -150,13 +150,13 @@ class Segment():
     def __eq__(self, other):
         return (self.a, self.b) == (other.a, other.b) or (self.a, self.b) == (other.b, other.a)
 
-    def pin(self):
+    def __pin(self):
         """ Returns Point b - a. """
         return self.b - self.a
 
     def __contains__(self, other):
         """ Check if a Point belongs to this segment. """
-        if (other - self.a) ** self.pin() == 0 and abs(2 * other - self.a - self.b) <= self.len():
+        if (other - self.a) ** self.__pin() == 0 and abs(2 * other - self.a - self.b) <= self.len():
             return True
         return False
 
@@ -166,7 +166,7 @@ class Segment():
         if isinstance(other, Point) and other in self:
             return other
         if isinstance(other, Segment):
-            if (other.a - self.a) ** self.pin() == 0 and (other.b - self.a) ** self.pin() == 0:
+            if (other.a - self.a) ** self.__pin() == 0 and (other.b - self.a) ** self.__pin() == 0:
                 p, q = sorted([other.a, other.b, self.a, self.b])[1: 3]
                 if p in self and p in other:
                     return Segment(p, q)

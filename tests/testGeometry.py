@@ -231,7 +231,7 @@ class testSegment(unittest.TestCase):
 
     def test_pin(self):
         p, q = Point(2 ** 0.5, -1), Point(-7, 3.5)
-        self.assertEqual(q - p, Segment(p, q).pin())
+        self.assertEqual(q - p, Segment(p, q)._Segment__pin())
 
 if __name__ == '__main__':
     unittest.main()
