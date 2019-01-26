@@ -5,7 +5,7 @@ with open("README.md", "r") as file:
 
 setup(
     name = "strukturen",
-    version = "0.0.1",
+    version = "0.1.0",
     author = "Pedro Sousa",
     author_email = "pedroteosousa@gmail.com",
     description = "Implementation of various data structures",
