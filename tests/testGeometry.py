@@ -1,4 +1,3 @@
-# pylint: disable=invalid-name
 # pylint: disable=missing-docstring
 # pylint: disable=too-many-public-methods
 

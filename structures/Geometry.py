@@ -1,5 +1,3 @@
-# pylint: disable=invalid-name
-
 """ Implementations of various geometry data structures. """
 
 from math import sqrt, atan2
