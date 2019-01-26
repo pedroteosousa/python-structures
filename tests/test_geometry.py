@@ -3,7 +3,7 @@
 
 import unittest
 from math import trunc, atan2
-from structures.geometry import Point, Segment
+from strukturen.geometry import Point, Segment
 
 class testPoint(unittest.TestCase):
     def setUp(self):

@@ -4,7 +4,7 @@ with open("README.md", "r") as file:
     long_description = file.read()
 
 setup(
-    name = "structures",
+    name = "strukturen",
     version = "0.0.1",
     author = "Pedro Sousa",
     author_email = "pedroteosousa@gmail.com",
